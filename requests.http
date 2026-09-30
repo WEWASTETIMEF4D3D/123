@@ -1,0 +1,67 @@
+@host = http://localhost:3000
+
+### 200 — список
+GET {{host}}/lessons
+
+### 200 — фильтр по дню недели
+GET {{host}}/lessons?weekday=mon
+
+### 400 — неверный фильтр
+GET {{host}}/lessons?weekday=xxx
+
+### 200 — один элемент
+GET {{host}}/lessons/1
+
+### 404 — нет такого id
+GET {{host}}/lessons/999
+
+### 201 — создать
+POST {{host}}/lessons
+Content-Type: application/json
+
+{ "title": "Борьба", "weekday": "tue", "startTime": "17:00", "endTime": "18:00" }
+
+### 400 — пересечение по времени (mon 10:00-11:30 уже занято)
+POST {{host}}/lessons
+Content-Type: application/json
+
+{ "title": "Бокс", "weekday": "mon", "startTime": "11:00", "endTime": "12:00" }
+
+### 400 — невалидные данные
+POST {{host}}/lessons
+Content-Type: application/json
+
+{ "title": "", "weekday": "funday", "startTime": "25:00", "endTime": "10:00" }
+
+### 200 — PUT целиком
+PUT {{host}}/lessons/3
+Content-Type: application/json
+
+{ "title": "Шахматы Pro", "weekday": "tue", "startTime": "15:30", "endTime": "17:00" }
+
+### 400 — PUT без обязательных полей
+PUT {{host}}/lessons/3
+Content-Type: application/json
+
+{ "title": "Только название" }
+
+### 200 — PATCH частично
+PATCH {{host}}/lessons/3
+Content-Type: application/json
+
+{ "endTime": "16:30" }
+
+### 400 — PATCH создаёт пересечение
+PATCH {{host}}/lessons/2
+Content-Type: application/json
+
+{ "startTime": "11:00" }
+
+### 204 — удалить
+DELETE {{host}}/lessons/4
+
+### 404 — удалить повторно
+DELETE {{host}}/lessons/4
+
+### 404 — несуществующий маршрут
+GET {{host}}/unknown
