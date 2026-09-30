@@ -1,0 +1,17 @@
+{
+  "name": "sections-api",
+  "version": "1.0.0",
+  "description": "REST API: расписание секций (вариант 1, N=8)",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "license": "ISC",
+  "keywords": [],
+  "author": "",
+  "dependencies": {
+    "dotenv": "^18.0.4",
+    "express": "^4.22.3"
+  }
+}
